@@ -9,4 +9,6 @@ public interface addressDao {
     public void update (Address address) throws SQLException;
     public void delete (int address_id) throws SQLException;
     public Address select (String userName, String Password) throws SQLException;
+
+    Address select(int addressid) throws SQLException;
 }

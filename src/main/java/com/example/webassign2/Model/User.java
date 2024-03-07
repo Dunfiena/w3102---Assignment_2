@@ -32,7 +32,7 @@ public class User {
     }
 
     public int getId() {
-        return id;
+        return Math.toIntExact(id);
     }
 
     public String getFirstname() {
