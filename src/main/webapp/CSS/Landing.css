@@ -1,0 +1,54 @@
+* { padding: 0; margin: 0; }
+
+body, html {
+    height: 100%;
+}
+.background{
+    width: 80%;
+    height: 100%;
+    margin-left: 10%;
+}
+
+.row1{
+    margin-top: 5%;
+    color: chocolate;
+    font-size: 10vw;
+    padding-left: 5%;
+    font-family: "Segoe Script", fantasy;
+    background: rgba(135, 206, 235, 0.65);
+    height: 30%;
+}
+
+.row2{
+    color: chocolate;
+    font-size: 8vw;
+    padding-left: 10%;
+    font-family: "Segoe Script", fantasy;
+    background: rgba(135, 206, 235, 0.65);
+    height: 30%;
+}
+
+.row3{
+    background: rgba(135, 206, 235, 0.65);
+    height: 15%;
+    padding-left: 15%;
+}
+
+button {
+    width: 50%;
+    height: 30%;
+    background: chocolate;
+    color: skyblue;
+}
+
+@media only screen and (max-width: 320px) {
+
+}
+
+@media only screen and (max-width: 480px) {
+
+}
+
+@media only screen and (max-width: 768px) {
+
+}

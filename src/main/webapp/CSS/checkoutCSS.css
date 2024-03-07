@@ -1,0 +1,65 @@
+* { padding: 0; margin: 0; }
+
+body, html {
+    height: 100%;
+}
+
+.checkout_body {
+    width: 100%;
+    height: 100%;
+    background: skyblue;
+    display: flex;
+    flex-direction: row;
+}
+
+.left {
+    margin-top: 2%;
+    margin-left: 5%;
+    padding: 2% 2% 0 2%;
+    width: 60%;
+    height: 92%;
+    background: white;
+    border: white 1px solid;
+    border-radius: 10%;
+}
+button {
+    width: 50%;
+    height: 5%;
+    font-size: 1.5vw;
+    background: chocolate;
+    color: skyblue;
+}
+.Title {
+    color: chocolate;
+    font-size: 4vw;
+    font-family: "Segoe Script", serif;
+}
+
+.Account_details {
+    font-size: 2vw;
+    color: chocolate;
+
+}
+
+.right {
+    margin-left: 5%;
+    width: 30%;
+    height: 100%;
+}
+
+.nav {
+    right: 10%;
+    height: 15%;
+    background: skyblue;
+}
+
+.cart {
+    width: 100%;
+    margin-top: 5%;
+    height: 75%;
+    background: white;
+    border: white 1px solid;
+    border-radius: 10%;
+    overflow-y: hidden;
+    overflow-wrap: normal;
+}
