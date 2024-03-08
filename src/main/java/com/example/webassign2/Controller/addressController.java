@@ -43,7 +43,7 @@ public class addressController implements addressDao {
             stmt = conn.prepareStatement("select * from address where address_id=?");
             stmt.setInt(1, addressid);
 
-            stmt.execute();
+            rs = stmt.executeQuery();
 
             while (rs.next()){
                 address = (new Address(

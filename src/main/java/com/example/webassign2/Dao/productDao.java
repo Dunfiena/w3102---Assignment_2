@@ -11,5 +11,8 @@ public interface productDao {
     public void update (Product product) throws SQLException;
     public void delete (int product_Id) throws SQLException;
     public Product select (String userName, String Password) throws SQLException;
+
+    ArrayList<Product> select() throws SQLException;
+
     ArrayList<Product> select(int productId) throws SQLException;
 }

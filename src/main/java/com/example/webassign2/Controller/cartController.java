@@ -44,7 +44,7 @@ public class cartController implements cartDao {
             conn = getConnection();
             stmt = conn.prepareStatement("Select * from cart where user_id=?");
             stmt.setInt(1, userID);
-            stmt.execute();
+            rs = stmt.executeQuery();
 
             while (rs.next()) {
                 cart = (new Cart(

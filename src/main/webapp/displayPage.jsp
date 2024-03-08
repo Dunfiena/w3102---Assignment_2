@@ -1,5 +1,20 @@
-
+<%@ page import="com.example.webassign2.Model.User" %>
+<%@ page import="com.example.webassign2.Controller.productController" %>
+<%@ page import="com.example.webassign2.Controller.cartController" %>
+<%@ page import="com.example.webassign2.Model.Product" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    User user = (User)request.getAttribute("user");
+    productController pcon = new productController();
+    cartController ccon = new cartController();
+    ArrayList<Product> products = new ArrayList<>();
+
+    products = pcon.select();
+
+
+%>
 <html>
 <head>
     <title>Shop - Styles by John Arbuckle</title>

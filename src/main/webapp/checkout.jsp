@@ -7,25 +7,28 @@
 <%@ page import="com.example.webassign2.Controller.productController" %>
 <%@ page import="com.example.webassign2.Controller.addressController" %>
 <%@ page import="com.example.webassign2.Model.Address" %>
+<%@ page import="java.util.Objects" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
     User user = (User)request.getAttribute("user");
-    Address address;
+    Address address = null;
     ArrayList<Cart> carts = new ArrayList<>();
     ArrayList<Product> products = new ArrayList<>();
     cartController ccon = new cartController();
     productController pcon = new productController();
     addressController acon = new addressController();
 
-    try {
-        carts = ccon.select(user.getId());
-        for (Cart cart : carts) {
-            products = pcon.select(cart.getItem_id());
+    if  (user !=null) {
+        try {
+            carts = ccon.select(user.getId());
+            for (Cart cart : carts) {
+                products = pcon.select(cart.getItem_id());
+            }
+            address = acon.select(user.getAddress_id());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        address = acon.select(user.getAddress_id());
-    } catch (SQLException e) {
-        throw new RuntimeException(e);
     }
 %>
 <html>
@@ -39,27 +42,30 @@
         <div class="Title">Account Shipping Information</div>
         <div class="login"><button>Login</button></div>
         <div class="Account_details">
-<%--            First Name: <%=user.getFirstname()%>--%>
-<%--            <br>Last Name: <%=user.getLastname()%>--%>
-<%--            <br>Phone: <%=user.getPhone()%>--%>
-<%--            <br>Email: <%=user.getEmail()%>--%>
+            <% if(user != null){ %>
+                First Name: <%=user.getFirstname()%>
+                <br>Last Name: <%=user.getLastname()%>
+                <br>Phone: <%=user.getPhone()%>
+                <br>Email: <%=user.getEmail()%>
 
-<%--            Street Number: <%=address.getStreet_num()%>--%>
-<%--            &nbsp; &nbsp; Street Name: <%=address.getStreet_name()%>--%>
-<%--            <br>City:<%=address.getCity()%>--%>
-<%--            &nbsp; &nbsp; Province: <%=address.getProvince()%>--%>
-<%--            <br>Postal Code: <%=address.getPostal()%>--%>
+                Street Number: <%=address.getStreet_num()%>
+                &nbsp; &nbsp; Street Name: <%=address.getStreet_name()%>
+                <br>City:<%=address.getCity()%>
+                &nbsp; &nbsp; Province: <%=address.getProvince()%>
+                <br>Postal Code: <%=address.getPostal()%>
 
-            First Name:
-            <br>Last Name:
-            <br>Phone:
-            <br>Email:
+            <%}else{%>
+                First Name:
+                <br>Last Name:
+                <br>Phone:
+                <br>Email:
 
-            Street Number:
-            &nbsp; &nbsp; Street Name:
-            <br>City:
-            &nbsp; &nbsp; Province:
-            <br>Postal Code:
+                Street Number:
+                &nbsp; &nbsp; Street Name:
+                <br>City:
+                &nbsp; &nbsp; Province:
+                <br>Postal Code:
+            <%}%>
 
 
         </div>
@@ -94,7 +100,12 @@
                     </tr>
                 </table>
             </div>
-            <%}}%>
+            <%}
+                }else{ %>
+                    You have no items in the cart.
+                    Please visit the store and buy some
+                    <a href="displayPage.jsp">To the store</a>
+            <%}%>
         </div>
 
     </div>
