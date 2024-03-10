@@ -12,15 +12,43 @@ import jakarta.servlet.http.*;
 public class HelloServlet extends HttpServlet {
 
     public void init() {
+
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        HttpSession mySession = req.getSession();
+        String URL = req.getServletPath();
+        switch (URL){
+            case "/login":
+                try {
+                    login(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case "/Register":
+                try {
+                    register(req,resp);
+                } catch (SQLException | ServletException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case "/addtoCart":
+                addtoCart(req,resp);
+                break;
+            case "addAddress":
+                addAddress(req,resp);
+                break;
 
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
+        HttpSession mySession = req.getSession();
         String URL = req.getServletPath();
         switch (URL){
             case "/login":
@@ -36,7 +64,22 @@ public class HelloServlet extends HttpServlet {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+                break;
+            case "/addtoCart":
+                addtoCart(req,resp);
+                break;
+            case "addAddress":
+                addAddress(req,resp);
+                break;
+
         }
+    }
+
+    private void addAddress(HttpServletRequest req, HttpServletResponse resp) {
+    }
+
+    private void addtoCart(HttpServletRequest req, HttpServletResponse resp) {
+
     }
 
     private void register(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
@@ -59,18 +102,16 @@ public class HelloServlet extends HttpServlet {
 
     }
 
-    private void login(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
+    private void login(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
+        HttpSession session = req.getSession();
+
+        String email = (String) session.getAttribute("email");
+        String password = (String) session.getAttribute("password");
 
         userController uCon = new userController();
         User user = uCon.select(email, password);
 
-        req.setAttribute("user", user);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/displayPage.jsp");
-        rd.include(req,resp);
-        rd.forward(req,resp);
-        resp.sendRedirect("displayPage.jsp");
+        session.setAttribute("user", user);
+        resp.sendRedirect("checkout.jsp");
     }
-
 }

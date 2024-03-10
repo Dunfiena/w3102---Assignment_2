@@ -14,11 +14,13 @@ public class Product {
     private double price;
     private int quantity;
     private int descriptor_id;
+    private String ImageURL;
 
     public Product() {
     }
 
-    public Product(Long id, String product_name, String description, int review_id, int rating_total, double price, int quantity, int descriptor_id) {
+    public Product(Long id, String product_name, String description, int review_id,
+                   int rating_total, double price, int quantity, int descriptor_id, String imageURL) {
         this.id = id;
         this.product_name = product_name;
         this.description = description;
@@ -27,6 +29,7 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
         this.descriptor_id = descriptor_id;
+        this.ImageURL = imageURL;
     }
 
     public void setId(Long id) {
@@ -91,5 +94,13 @@ public class Product {
 
     public void setDescriptor_id(int descriptor_id) {
         this.descriptor_id = descriptor_id;
+    }
+
+    public String getImageURL() {
+        return ImageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        ImageURL = imageURL;
     }
 }

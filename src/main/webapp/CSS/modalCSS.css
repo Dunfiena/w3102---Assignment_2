@@ -1,0 +1,84 @@
+{box-sizing: border-box;}
+* { padding: 0; margin: 0; }
+
+body, html {
+    height: 100%;
+    width: 100%;
+}
+.modal_body {
+    position: fixed;
+    bottom: 0;
+    right: 1.5vw;
+    border: .3vw solid #f1f1f1;
+    z-index: 9;
+    background: skyblue;
+    font-size: 2vw;
+}
+
+.modal_body_item {
+    position: fixed;
+    top: 5vw;
+    left: 10vw;
+    border: .3vw solid #f1f1f1;
+    z-index: 9;
+    background: skyblue;
+    font-size: 2vw;
+    width: 75%;
+    height: 75%;
+
+}
+
+.modal_body_control {
+    display: flex;
+    flex-direction: row;
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+}
+.modal_left {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal_image {
+    width: 100%;
+    height: 50%;
+}
+
+.modal_text {
+    width: 100%;
+    height: 48%;
+}
+
+.modal_right {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.quit_button {
+    margin-left: 80%;
+    width: 10%;
+    height: 10%;
+    background: red;
+    border: black 2px solid;
+    border-radius: 5%;;
+}
+.modal_review {
+    width: 80%;
+    height: 50%;
+    overflow-y: scroll;
+}
+
+.modal_review::-webkit-scrollbar {
+    display: none;
+}
+.modal_leave_review {
+    width: 80%;
+    height: 25%;
+
+
+}

@@ -22,4 +22,31 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>addtoCart</servlet-name>
+        <servlet-class>com.example.webassign2.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addtoCart</servlet-name>
+        <url-pattern>/addtoCart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addAddress</servlet-name>
+        <servlet-class>com.example.webassign2.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addAddress</servlet-name>
+        <url-pattern>/addAddress</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>leaveRev</servlet-name>
+        <servlet-class>com.example.webassign2.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>leaveRev</servlet-name>
+        <url-pattern>/leaveReview</url-pattern>
+    </servlet-mapping>
+
 </web-app>

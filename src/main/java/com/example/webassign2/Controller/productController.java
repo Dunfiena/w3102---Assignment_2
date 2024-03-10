@@ -54,8 +54,10 @@ public class productController implements productDao {
                         rs.getInt(5),
                         rs.getDouble(6),
                         rs.getInt(7),
-                        rs.getInt(8))
+                        rs.getInt(8),
+                        rs.getString(9))
                 );
+                products.add(product);
             }
             return products;
         } catch (ClassNotFoundException e) {
@@ -85,8 +87,11 @@ public class productController implements productDao {
                         rs.getInt(5),
                         rs.getDouble(6),
                         rs.getInt(7),
-                        rs.getInt(8))
+                        rs.getInt(8),
+                        rs.getString(9))
+
                 );
+                products.add(product);
             }
             return products;
         } catch (ClassNotFoundException e) {

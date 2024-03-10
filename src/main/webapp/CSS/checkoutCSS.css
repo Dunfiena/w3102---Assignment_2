@@ -23,7 +23,7 @@ body, html {
     border-radius: 10%;
 }
 button {
-    width: 50%;
+    width: 49%;
     height: 5%;
     font-size: 1.5vw;
     background: chocolate;
@@ -62,4 +62,10 @@ button {
     border-radius: 10%;
     overflow-y: hidden;
     overflow-wrap: normal;
+}
+
+.empty_text {
+    padding: 5%;
+    font-size: 1.5vw;
+    color: chocolate;
 }
