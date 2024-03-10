@@ -14,23 +14,60 @@ import static com.example.webassign2.Controller.database_connection.getConnectio
 public class cartController implements cartDao {
     @Override
     public void insert(Cart cart) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement("INSERT INTO `cart`(`user_id`, `item_id`, `item_quantity`, `submitted`, `shipped`, `received`) VALUES (?,?,?,?,?,?,?)");
+            stmt.setInt(1, cart.getUser_id());
+            stmt.setInt(2, cart.getItem_id());
+            stmt.setInt(3, cart.getItem_quantity());
+            stmt.setInt(4, cart.getSubmitted());
+            stmt.setInt(5, cart.getShipped());
+            stmt.setInt(6, cart.getRecieved());
+
+
+            stmt.executeQuery();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void update(Cart cart) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement("UPDATE `cart` SET `item_quantity`=?,`submitted`=?,`shipped`=?,`received`=? WHERE cart_id=?");
+            stmt.setInt(1, cart.getItem_quantity());
+            stmt.setInt(2, cart.getSubmitted());
+            stmt.setInt(3, cart.getShipped());
+            stmt.setInt(4, cart.getRecieved());
+            stmt.setInt(5, cart.getId());
+
+
+            stmt.executeUpdate();
+        }catch (Exception ex) {
+            System.out.println("Error:" + ex.getMessage());
+        }
     }
 
     @Override
     public void delete(int cartId) throws SQLException {
-
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM cart WHERE cart_id=?;");
+            stmt.setInt(1, cartId);
+            stmt.executeUpdate();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    @Override
-    public Cart select(String userName, String Password) throws SQLException {
-        return null;
-    }
 
     @Override
     public ArrayList<Cart> select(int userID) throws SQLException {
@@ -48,7 +85,7 @@ public class cartController implements cartDao {
 
             while (rs.next()) {
                 cart = (new Cart(
-                        rs.getLong(1),
+                        rs.getInt(1),
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),

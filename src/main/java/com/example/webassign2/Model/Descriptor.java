@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Descriptor {
     @Id
-    private Long id;
+    private int id;
     private String color;
     private String type;
     private String materials;
@@ -16,7 +16,7 @@ public class Descriptor {
     public Descriptor() {
     }
 
-    public Descriptor(Long id, String color, String type, String materials, int pattern, int print) {
+    public Descriptor(int id, String color, String type, String materials, int pattern, int print) {
         this.id = id;
         this.color = color;
         this.type = type;
@@ -25,11 +25,11 @@ public class Descriptor {
         this.print = print;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

@@ -13,20 +13,6 @@ import java.util.ArrayList;
 import static com.example.webassign2.Controller.database_connection.getConnection;
 
 public class descriptorController implements descriptionDao {
-    @Override
-    public void insert(Descriptor descriptor) throws SQLException {
-
-    }
-
-    @Override
-    public void update(Descriptor descriptor) throws SQLException {
-
-    }
-
-    @Override
-    public void delete(int descriptor_id) throws SQLException {
-
-    }
 
     @Override
     public ArrayList<Descriptor> select(String color, String type,String material, int pattern, int print) throws SQLException {
@@ -49,7 +35,7 @@ public class descriptorController implements descriptionDao {
 
             while (rs.next()) {
                 descriptor1 = (new Descriptor(
-                        rs.getLong(1),
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),

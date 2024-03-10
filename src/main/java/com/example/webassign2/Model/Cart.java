@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Cart {
     @Id
-    private Long id;
+    private int id;
     private int user_id;
     private int item_id;
     private int item_quantity;
@@ -17,7 +17,7 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(Long id, int user_id, int item_id, int item_quantity, int submitted, int shipped, int recieved) {
+    public Cart(int id, int user_id, int item_id, int item_quantity, int submitted, int shipped, int recieved) {
         this.id = id;
         this.user_id = user_id;
         this.item_id = item_id;
@@ -27,11 +27,11 @@ public class Cart {
         this.recieved = recieved;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

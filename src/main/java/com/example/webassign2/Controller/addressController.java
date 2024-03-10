@@ -13,25 +13,27 @@ import static com.example.webassign2.Controller.database_connection.getConnectio
 public class addressController implements addressDao {
     @Override
     public void insert(Address address) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement("INSERT INTO `address`(`street_num`, `street_name`, `city`, `province`, `postal`, `building_type`) VALUES (?,?,?,?,?,?,)");
+            stmt.setInt(1, address.getStreet_num());
+            stmt.setString(2, address.getStreet_name());
+            stmt.setString(3, address.getCity());
+            stmt.setString(4, address.getProvince());
+            stmt.setString(5, address.getPostal());
+            stmt.setString(6, address.getBuilding_type());
+
+
+            stmt.executeQuery();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    @Override
-    public void update(Address address) throws SQLException {
-
-    }
-
-    @Override
-    public void delete(int address_id) throws SQLException {
-
-    }
-
-    @Override
-    public Address select(String userName, String Password) throws SQLException {
-        return null;
-    }
-
-    @Override
+        @Override
     public Address select(int addressid) throws SQLException {
         Address address = null;
         Connection conn = null;
@@ -47,7 +49,7 @@ public class addressController implements addressDao {
 
             while (rs.next()){
                 address = (new Address(
-                        rs.getLong(1),
+                        rs.getInt(1),
                         rs.getInt(2),
                         rs.getString(3),
                         rs.getString(4),

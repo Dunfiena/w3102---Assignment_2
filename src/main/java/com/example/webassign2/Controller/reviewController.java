@@ -15,22 +15,21 @@ import static com.example.webassign2.Controller.database_connection.getConnectio
 public class reviewController implements reviewDao {
     @Override
     public void insert(Review review) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
-    }
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement("INSERT INTO `review`(`user_id`, `item_id`, `rating`, `review_text`) VALUES (?,?,?,?);");
+            stmt.setInt(1, review.getUser_id());
+            stmt.setInt(2, review.getItem_id());
+            stmt.setInt(3, review.getRating());
+            stmt.setString(4, review.getReview_text());
 
-    @Override
-    public void update(Review review) throws SQLException {
-
-    }
-
-    @Override
-    public void delete(int reviewId) throws SQLException {
-
-    }
-
-    @Override
-    public Review select(String userName, String Password) throws SQLException {
-        return null;
+            stmt.executeQuery();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -49,7 +48,7 @@ public class reviewController implements reviewDao {
 
             while (rs.next()) {
                 review = (new Review(
-                        rs.getLong(1),
+                        rs.getInt(1),
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),

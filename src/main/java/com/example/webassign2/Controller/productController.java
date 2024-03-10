@@ -13,26 +13,6 @@ import static com.example.webassign2.Controller.database_connection.getConnectio
 
 public class productController implements productDao {
     @Override
-    public void insert(Product product) throws SQLException {
-
-    }
-
-    @Override
-    public void update(Product product) throws SQLException {
-
-    }
-
-    @Override
-    public void delete(int product_Id) throws SQLException {
-
-    }
-
-    @Override
-    public Product select(String userName, String Password) throws SQLException {
-        return null;
-    }
-
-    @Override
     public ArrayList<Product> select() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -47,7 +27,7 @@ public class productController implements productDao {
 
             while (rs.next()) {
                 product = (new Product(
-                        rs.getLong(1),
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getInt(4),
@@ -80,7 +60,7 @@ public class productController implements productDao {
 
             while (rs.next()) {
                 product = (new Product(
-                        rs.getLong(1),
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getInt(4),

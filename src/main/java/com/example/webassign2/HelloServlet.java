@@ -91,7 +91,7 @@ public class HelloServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         userController uCon = new userController();
-        User user = new User(1L,firstName, lastName, phone, email, password, 1);
+        User user = new User(1,firstName, lastName, phone, email, password, 1);
                 uCon.insert(user);
 
         req.setAttribute("user", user);

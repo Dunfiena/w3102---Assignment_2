@@ -10,7 +10,5 @@ public interface cartDao {
     public void insert (Cart cart) throws SQLException;
     public void update (Cart cart) throws SQLException;
     public void delete (int cartId) throws SQLException;
-    public Cart select (String userName, String Password) throws SQLException;
-
     ArrayList<Cart> select(int userID) throws SQLException;
 }

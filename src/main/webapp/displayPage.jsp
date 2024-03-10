@@ -17,12 +17,12 @@
     reviewController rcon = new reviewController();
     ArrayList<Product> products = new ArrayList<>();
     ArrayList<Review> reviews = new ArrayList<>();
+
     try {
         products = pcon.select();
         if (products != null){
             for (Product prod: products) {
-                reviews = rcon.select(Math.toIntExact(prod.getId()));
-
+                reviews.addAll(rcon.select(prod.getId()));
             }
         }
     } catch (SQLException e) {
@@ -74,24 +74,26 @@
         <div class="modal_right">
             <button class="quit_button" onclick="itemModel('itemModal<%=product.getId()%>')">X</button>
             <div class="modal_review">
-                <%for (Review rev : reviews ) {
+                <hr>
+                <%for (Review rev : reviews) {
                     if (rev.getItem_id() == product.getId()){%>
-                    Rating: <%=rev.getRating()%>
-                    Review: <%=rev.getReview_text()%>
+                    Rating: <%=rev.getRating()%><br>
+                    Review: <%=rev.getReview_text()%><br><hr>
                 <%}}%>
             </div>
+            <hr><hr>
 
             <div class="modal_leave_review">
                 <form name="review" method="post" action="leaveReview">
-                    <label>Leave a Review:
-                        <input type="text" name="review" placeholder="Leave us with your thoughts =)">
+                    <label>Leave a Review:<br>
+                        <input type="text" name="review" placeholder="Leave us with your thoughts =)"style="width: 100%; height: 40%;">
                     </label>
 
                     <label> Rating:
-                        <jsp:include page="componant/starRating.jsp"></jsp:include>
+                        <input type="number" max="10" min="0" name="rating">
                     </label>
+                    <button type="submit">Submit Review</button>
                 </form>
-
             </div>
         </div>
     </div>

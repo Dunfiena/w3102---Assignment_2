@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 @Entity
 public class User {
     @Id
-    private Long id;
+    private int id;
     private String firstname;
     private String lastname;
     private String phone;
@@ -17,7 +17,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String firstname, String lastname, String phone, String email, String password, int address_id) {
+    public User(int id, String firstname, String lastname, String phone, String email, String password, int address_id) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -27,12 +27,12 @@ public class User {
         this.address_id = address_id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     public int getId() {
-        return Math.toIntExact(id);
+        return id;
     }
 
     public String getFirstname() {

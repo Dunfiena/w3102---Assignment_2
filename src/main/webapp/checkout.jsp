@@ -15,6 +15,7 @@
     Address address = null;
     ArrayList<Cart> carts = new ArrayList<>();
     ArrayList<Product> products = new ArrayList<>();
+
     cartController ccon = new cartController();
     productController pcon = new productController();
     addressController acon = new addressController();
@@ -22,7 +23,7 @@
         try {
             carts = ccon.select(user.getId());
             for (Cart cart : carts) {
-                products = pcon.select(cart.getItem_id());
+                products.addAll(pcon.select(cart.getItem_id()));
             }
             address = acon.select(user.getAddress_id());
         } catch (SQLException e) {

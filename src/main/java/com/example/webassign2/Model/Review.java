@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Review {
     @Id
-    private Long id;
+    private int id;
     private int user_id;
     private int item_id;
     private int rating;
@@ -15,7 +15,7 @@ public class Review {
     public Review() {
     }
 
-    public Review(Long id, int user_id, int item_id, int rating, String review_text) {
+    public Review(int id, int user_id, int item_id, int rating, String review_text) {
         this.id = id;
         this.user_id = user_id;
         this.item_id = item_id;
@@ -23,11 +23,11 @@ public class Review {
         this.review_text = review_text;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

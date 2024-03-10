@@ -14,17 +14,24 @@ import static com.example.webassign2.Controller.database_connection.getConnectio
 public class userController implements userDao {
     @Override
     public void insert(User user) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
-    }
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement("INSERT INTO `user`(`firstname`, `lastname`, `phone`, `email`, `password`, `address_id`) VALUES (?,?,?,?,?,?)");
+            stmt.setString(1, user.getFirstname());
+            stmt.setString(2, user.getLastname());
+            stmt.setString(3, user.getPhone());
+            stmt.setString(4, user.getEmail());
+            stmt.setString(5, user.getPassword());
+            stmt.setInt(6, user.getAddress_id());
 
-    @Override
-    public void update(User user) throws SQLException {
 
-    }
-
-    @Override
-    public void delete(User userId) throws SQLException {
-
+            stmt.executeQuery();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -44,7 +51,7 @@ public class userController implements userDao {
 
             while (rs.next()){
                 user = (new User(
-                        rs.getLong(1),
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),

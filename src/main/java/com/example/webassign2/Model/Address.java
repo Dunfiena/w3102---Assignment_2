@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 public class Address {
 
     @Id
-    private Long id;
+    private int id;
     private int street_num;
     private String street_name;
     private String city;
@@ -19,7 +19,7 @@ public class Address {
     public Address() {
     }
 
-    public Address(Long id, int street_num, String street_name, String city, String province, String postal, String building_type) {
+    public Address(int id, int street_num, String street_name, String city, String province, String postal, String building_type) {
         this.id = id;
         this.street_num = street_num;
         this.street_name = street_name;
@@ -29,11 +29,11 @@ public class Address {
         this.building_type = building_type;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
