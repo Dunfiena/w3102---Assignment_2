@@ -82,3 +82,10 @@ body, html {
 
 
 }
+
+button {
+    width: 49%;
+    font-size: 1.5vw;
+    background: chocolate;
+    color: skyblue;
+}

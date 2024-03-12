@@ -49,4 +49,13 @@
         <url-pattern>/leaveReview</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>addDescription</servlet-name>
+        <servlet-class>com.example.webassign2.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addDescription</servlet-name>
+        <url-pattern>/addDescription</url-pattern>
+    </servlet-mapping>
+
 </web-app>

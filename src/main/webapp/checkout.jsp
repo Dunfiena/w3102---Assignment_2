@@ -12,7 +12,7 @@
 <%@ page session="true" %>
 <%
     User user = (User)session.getAttribute("user");
-    Address address = null;
+    Address address = (Address) session.getAttribute("address");
     ArrayList<Cart> carts = new ArrayList<>();
     ArrayList<Product> products = new ArrayList<>();
 
@@ -23,9 +23,11 @@
         try {
             carts = ccon.select(user.getId());
             for (Cart cart : carts) {
-                products.addAll(pcon.select(cart.getItem_id()));
+                products.add(pcon.select(cart.getItem_id()));
             }
-            address = acon.select(user.getAddress_id());
+            if (address==null) {
+                address = acon.select(user.getAddress_id());
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -45,25 +47,29 @@
         <div class="Title">Account Shipping Information</div>
         <div class="login"><button onclick="displayLogin()">Login</button></div>
         <div class="Account_details">
-            <% if(user != null && address != null){ %>
+            <% if(user != null && address !=null){ %>
                 First Name: <%=user.getFirstname()%>
                 <br>Last Name: <%=user.getLastname()%>
                 <br>Phone: <%=user.getPhone()%>
                 <br>Email: <%=user.getEmail()%>
+
+            <br><br>
 
                 Street Number: <%=address.getStreet_num()%>
                 &nbsp; &nbsp; Street Name: <%=address.getStreet_name()%>
                 <br>City:<%=address.getCity()%>
                 &nbsp; &nbsp; Province: <%=address.getProvince()%>
                 <br>Postal Code: <%=address.getPostal()%>
+                <br>Building Type: <%=address.getBuilding_type()%>
+
 
             <%}else if (user != null){%>
-                First Name:
-                <br>Last Name:
-                <br>Phone:
-                <br>Email:
+                First Name: <%=user.getFirstname()%>
+                <br>Last Name: <%=user.getLastname()%>
+                <br>Phone: <%=user.getPhone()%>
+                <br>Email: <%=user.getEmail()%>
 
-            <form class="regAddress" method="post" action="addAddress">
+            <form class="regAddress" method="get" action="addAddress">
                  <label>
                      Street Number:
                     <input type="number" name="streetNo">
@@ -89,7 +95,12 @@
                 Postal Code:
                     <input type="text" name="postal">
                 </label>
-
+                <br>
+                <label>
+                    Building type:
+                    <input type="text" name="buildtype">
+                </label>
+                <br>
                 <button type="submit">Submit</button>
                 <button type="reset">Clear</button>
             </form>
@@ -105,7 +116,7 @@
             <br>City:
             &nbsp; &nbsp; Province:
             <br>Postal Code:
-
+            <br>Building Type:
                 <%}%>
 
 

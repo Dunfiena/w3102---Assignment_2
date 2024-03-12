@@ -45,12 +45,11 @@ public class productController implements productDao {
         }    }
 
     @Override
-    public ArrayList<Product> select(int productId) throws SQLException {
+    public Product select(int productId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ArrayList<Product> products = new ArrayList<>();
-        Product product;
+        Product product = null;
 
         try {
             conn = getConnection();
@@ -58,7 +57,7 @@ public class productController implements productDao {
             stmt.setInt(1, productId);
             rs = stmt.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 product = (new Product(
                         rs.getInt(1),
                         rs.getString(2),
@@ -71,12 +70,11 @@ public class productController implements productDao {
                         rs.getString(9))
 
                 );
-                products.add(product);
+                return product;
             }
-            return products;
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
+        return product;
     }
 }

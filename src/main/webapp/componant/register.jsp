@@ -1,4 +1,4 @@
-    <form class="form-container" method="post" action="register">
+    <form class="form-container" method="get" action="register">
         <h1>Register</h1>
         <a onclick="displayLogin2()" style="font-size: 1.5vw; color: #f1f1f1">Back to login?</a><br>
         <label><b>First name</b>

@@ -32,3 +32,14 @@ function itemModel(id) {
         modal.style.display = 'none'
     }
 }
+
+function checklogin(login){
+    if (login === false){
+        alert("Please log in before leaving a review")
+        displayLogin()
+        return false
+    }else{
+        return true
+    }
+
+}

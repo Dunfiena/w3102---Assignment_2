@@ -26,7 +26,7 @@ public class reviewController implements reviewDao {
             stmt.setInt(3, review.getRating());
             stmt.setString(4, review.getReview_text());
 
-            stmt.executeQuery();
+            stmt.executeUpdate();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

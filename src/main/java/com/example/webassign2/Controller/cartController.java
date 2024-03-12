@@ -19,7 +19,7 @@ public class cartController implements cartDao {
 
         try {
             conn = getConnection();
-            stmt = conn.prepareStatement("INSERT INTO `cart`(`user_id`, `item_id`, `item_quantity`, `submitted`, `shipped`, `received`) VALUES (?,?,?,?,?,?,?)");
+            stmt = conn.prepareStatement("INSERT INTO `cart`(`user_id`, `item_id`, `item_quantity`, `submitted`, `shipped`, `received`) VALUES (?,?,?,?,?,?)");
             stmt.setInt(1, cart.getUser_id());
             stmt.setInt(2, cart.getItem_id());
             stmt.setInt(3, cart.getItem_quantity());
@@ -28,7 +28,7 @@ public class cartController implements cartDao {
             stmt.setInt(6, cart.getRecieved());
 
 
-            stmt.executeQuery();
+            stmt.executeUpdate();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -93,6 +93,7 @@ public class cartController implements cartDao {
                         rs.getInt(6),
                         rs.getInt(7))
                 );
+                carts.add(cart);
             }
             return carts;
         } catch (ClassNotFoundException e) {

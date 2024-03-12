@@ -19,16 +19,15 @@ public class userController implements userDao {
 
         try {
             conn = getConnection();
-            stmt = conn.prepareStatement("INSERT INTO `user`(`firstname`, `lastname`, `phone`, `email`, `password`, `address_id`) VALUES (?,?,?,?,?,?)");
+            stmt = conn.prepareStatement("INSERT INTO `user`(`firstname`, `lastname`, `phone`, `email`, `password`) VALUES (?,?,?,?,?)");
             stmt.setString(1, user.getFirstname());
             stmt.setString(2, user.getLastname());
             stmt.setString(3, user.getPhone());
             stmt.setString(4, user.getEmail());
             stmt.setString(5, user.getPassword());
-            stmt.setInt(6, user.getAddress_id());
 
 
-            stmt.executeQuery();
+            stmt.executeUpdate();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -66,5 +65,21 @@ public class userController implements userDao {
             throw new RuntimeException(e);
         }
         return user;
+    }
+
+    public void update(int addessID, User user){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement("UPDATE user SET address_id=? WHERE user_id=?;");
+            stmt.setInt(1, addessID);
+            stmt.setInt(2, user.getId());
+
+            stmt.executeUpdate();
+        }catch (Exception ex) {
+            System.out.println("Error:" + ex.getMessage());
+        }
     }
 }

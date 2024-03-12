@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.example.webassign2.Controller.database_connection.getConnection;
 
@@ -21,10 +22,10 @@ public class descriptorController implements descriptionDao {
         ResultSet rs = null;
         ArrayList<Descriptor> descriptors = new ArrayList<>();
         Descriptor descriptor1;
-
         try {
             conn = getConnection();
-            stmt = conn.prepareStatement("Select * from descriptor where color=? and type=? and materials=? and pattern=? and print=?");
+
+            stmt = conn.prepareStatement("SELECT * from descriptor where color=? or type=? or materials=? or pattern=? or print=?");
             stmt.setString(1, color);
             stmt.setString(2, type);
             stmt.setString(3, material);

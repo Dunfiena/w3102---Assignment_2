@@ -11,38 +11,47 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
+    ArrayList<Descriptor> descriptors = (ArrayList<Descriptor>) session.getAttribute("desTmp");
     User user = (User)session.getAttribute("user");
+    descriptorController dcon = new descriptorController();
     productController pcon = new productController();
     cartController ccon = new cartController();
     reviewController rcon = new reviewController();
+    ArrayList<Product> productstmp = new ArrayList<>();
     ArrayList<Product> products = new ArrayList<>();
     ArrayList<Review> reviews = new ArrayList<>();
+    boolean login = false;
 
     try {
-        products = pcon.select();
-        if (products != null){
-            for (Product prod: products) {
+        productstmp = pcon.select();
+        if (productstmp != null && descriptors !=null) {
+            for (Product product : productstmp) {
+                for (Descriptor des : descriptors) {
+                    if (product.getDescriptor_id() == des.getId()) {
+                        products.add(product);
+                    }
+                }
+            }
+            for (Product prod : products) {
                 reviews.addAll(rcon.select(prod.getId()));
             }
+        }else{
+            products = productstmp;
         }
     } catch (SQLException e) {
         throw new RuntimeException(e);
     }
+
+    if (user != null) {
+        login = true;
+    }
 %>
 
-<%! public void select_att(String color, String type, String material, int pattern, int print) throws SQLException {
-    productController pcon = new productController();
-    ArrayList<Product> products = new ArrayList<>();
-    ArrayList<Descriptor> descriptors = new ArrayList<>();
-    descriptorController dcon = new descriptorController();
-    descriptors = dcon.select(color, type, material, pattern, print);
-    products = pcon.select();
-} %>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="CSS/displayPage.css">
     <link rel="stylesheet" href="CSS/modalCSS.css">
-    <link rel="stylesheet" href="CSS/starRatingCSS.css">
     <script src="scripts.js"></script>
 
     <title>Shop - Styles by John Arbuckle</title>
@@ -58,14 +67,14 @@
             </div>
             <br>
             <div class="modal_text">
-                <form name="add_cart" action="addtoCart" method="post">
+                <form name="add_cart" action="addtoCart" onsubmit="return checklogin(<%=login%>)" method="get">
                     Name: <%=product.getProduct_name()%> <br>
                     Description: <%=product.getDescription()%> <br>
                     Price: <%=product.getPrice()%>$<br>
                     <label>             Quantity:
-                        <input type="number" name="quantity">
+                        <input type="number" name="itemQuantity">
                     </label>
-                    <input type="hidden" name="productID" value="<%=product.getId()%>">
+                    <input type="hidden" name="itemID" value="<%=product.getId()%>">
                     <button type="submit">Add to Cart</button>
                 </form>
             </div>
@@ -84,15 +93,18 @@
             <hr><hr>
 
             <div class="modal_leave_review">
-                <form name="review" method="post" action="leaveReview">
+                <form name="review" method="get" onsubmit="return checklogin(<%=login%>)" action="leaveReview">
                     <label>Leave a Review:<br>
-                        <input type="text" name="review" placeholder="Leave us with your thoughts =)"style="width: 100%; height: 40%;">
+                        <input type="text" name="review" placeholder="Leave us with your thoughts =)" style="width: 100%; height: 40%;">
                     </label>
 
                     <label> Rating:
                         <input type="number" max="10" min="0" name="rating">
                     </label>
-                    <button type="submit">Submit Review</button>
+                    <label> Rating:
+                        <input type="hidden" value="<%=product.getId()%>" name="itemID">
+                    </label>
+                    <button type="submit" >Submit Review</button>
                 </form>
             </div>
         </div>
@@ -103,39 +115,46 @@
 <div class="sidebar">
     <div class="sidebar_title">Style choice with John</div>
     <div class="sidebar_menu">
-        <div class="menu_option"></div>
-        <div class="menu_option_title">Color</div>
-        <div class="menu_option_body">
-            <input type="radio" name="color" onclick="<% try {select_att("blue", "*", "*", 0, 0);} catch (SQLException e) {throw new RuntimeException(e);}%>">Blue<br>
-            <input type="radio" name="color" onclick="<% try {select_att("brown", "*", "*", 0, 0);} catch (SQLException e) {throw new RuntimeException(e);}%>">Brown<br>
-            <input type="radio" name="color" onclick="<% try {select_att("blue-brown", "*", "*", 0, 0);} catch (SQLException e) {throw new RuntimeException(e);}%>">Blue-Brown<br>
-        </div>
+        <form name="description" method="get" action="addDescription">
+            <div class="menu_option"></div>
+            <div class="menu_option_title">Color</div>
+            <div class="menu_option_body">
+                <input type="radio" name="color" value="2" checked>None<br>
+                <input type="radio" name="color" value="Blue">Blue<br>
+                <input type="radio" name="color" value="Brown">Brown<br>
+                <input type="radio" name="color" value="Blue-Brown">Blue-Brown<br>
+            </div>
 
-        <div class="menu_option_title">Type</div>
-        <div class="menu_option_body">
-            <input type="radio" name="type" onclick="<% try {select_att("*", "*", "*", 0, 0);} catch (SQLException e) {throw new RuntimeException(e);}%>">Shirt<br>
-            <input type="radio" name="type" onclick="<% try {select_att("*", "*", "*", 0, 0);} catch (SQLException e) {throw new RuntimeException(e);}%>">Pants<br>
-        </div>
+            <div class="menu_option_title">Type</div>
+            <div class="menu_option_body">
+                <input type="radio" name="type" value="2" checked>None<br>
+                <input type="radio" name="type" value="Shirt">Shirt<br>
+                <input type="radio" name="type" value="Pants">Pants<br>
+            </div>
 
-        <div class="menu_option_title">Material</div>
-        <div class="menu_option_body">
-            <input type="radio" name="mat" onclick="<% try {select_att("blue", "*", "*", 0, 0);} catch (SQLException e) {throw new RuntimeException(e);}%>">Cotton<br>
-            <input type="radio" name="mat" onclick="<% try {select_att("brown", "*", "*", 0, 0);} catch (SQLException e) {throw new RuntimeException(e);}%>">Poly/Cotton<br>
-            <input type="radio" name="mat" onclick="<% try {select_att("blue-brown", "*", "*", 0, 0);} catch (SQLException e) {throw new RuntimeException(e);}%>">Jean<br>
-        </div>
+            <div class="menu_option_title">Material</div>
+            <div class="menu_option_body">
+                <input type="radio" name="mat" value="2" checked>None<br>
+                <input type="radio" name="mat" value="Cotton">Cotton<br>
+                <input type="radio" name="mat" value="Poly/Cotton">Poly/Cotton<br>
+                <input type="radio" name="mat" value="Jean">Jean<br>
+            </div>
 
-        <div class="menu_option_title">Pattern</div>
-        <div class="menu_option_body">
-            <input type="radio"  name="pat" onclick="<% try {select_att("blue", "*", "*", 0, 0);} catch (SQLException e) {throw new RuntimeException(e);}%>">Yes<br>
-            <input type="radio" name="pat" onclick="<% try {select_att("brown", "*", "*", 0, 0);} catch (SQLException e) {throw new RuntimeException(e);}%>">No<br>
-        </div>
+            <div class="menu_option_title">Pattern</div>
+            <div class="menu_option_body">
+                <input type="radio" name="pat" value="2" checked>None<br>
+                <input type="radio" name="pat" value="1">Yes<br>
+                <input type="radio" name="pat" value="0">No<br>
+            </div>
 
-        <div class="menu_option_title">Print</div>
-        <div class="menu_option_body">
-            <input type="radio" name="print" onclick="<% try {select_att("blue", "*", "*", 0, 0);} catch (SQLException e) {throw new RuntimeException(e);}%>">Yes<br>
-            <input type="radio" name="print" onclick="<% try {select_att("brown", "*", "*", 0, 0);} catch (SQLException e) {throw new RuntimeException(e);}%>">No<br>
-        </div>
-
+            <div class="menu_option_title">Print</div>
+            <div class="menu_option_body">
+                <input type="radio" name="print" value="2" checked>None<br>
+                <input type="radio" name="print" value="1">Yes<br>
+                <input type="radio" name="print" value="0">No<br>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
     </div>
 </div>
 
@@ -143,8 +162,9 @@
     <div class="topbar">
         <div class="title">Styles by John Arbuckle</div>
         <div class="nav">
-            <a href="displayPage.jsp"><img src="assets/clothes_icon.png" alt="items" width="40%"></a>
-            <a href="checkout.jsp"><img src="assets/cart_icon.png" alt="cart" width="40%"></a>
+            <a href="displayPage.jsp"><img src="assets/clothes_icon.png" alt="items" width="25%"></a>
+            <a href="checkout.jsp"><img src="assets/cart_icon.png" alt="cart" width="25%"></a>
+            <button style="width: 33%; height: 100%; padding-top:15%; font-size: 2vw; background: skyblue; color: chocolate" onclick="displayLogin()">Login</button>
         </div>
     </div>
     <div class="card_Body">
