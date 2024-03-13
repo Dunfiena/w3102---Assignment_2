@@ -33,13 +33,21 @@ function itemModel(id) {
     }
 }
 
-function checklogin(login){
+function checklogin(login, available, quantity){
     if (login === false){
         alert("Please log in before leaving a review")
         displayLogin()
         return false
     }else{
-        return true
+        if(checkQuantity(available, quantity)){
+            return true
+        }else{
+            alert("Sorry, there are not enough available items.  Please try again on another day or contact admin")
+            return false
+        }
     }
 
+    function checkQuantity(available, quantity){
+        return quantity < available;
+    }
 }
