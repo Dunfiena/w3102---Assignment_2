@@ -33,13 +33,25 @@ function itemModel(id) {
     }
 }
 
-function checklogin(login, available, quantity){
-    if (login === false){
+function checklogin1(login, available, id) {
+    var quan = document.getElementById(id).value
+    if (login === false) {
         alert("Please log in before leaving a review")
         displayLogin()
         return false
+    } else {
+        return true
+    }
+}
+
+function checklogin2(login, available, id){
+    var quan = document.getElementById(id)
+    if (login === false){
+        alert("Please log in before adding items to the cart")
+        displayLogin()
+        return false
     }else{
-        if(checkQuantity(available, quantity)){
+        if(checkQuantity(available, quan.value) === true){
             return true
         }else{
             alert("Sorry, there are not enough available items.  Please try again on another day or contact admin")
@@ -48,6 +60,8 @@ function checklogin(login, available, quantity){
     }
 
     function checkQuantity(available, quantity){
-        return quantity < available;
+        if (parseInt(quantity, 10) <= parseInt(available, 10)){
+            return true;
+        }
     }
 }

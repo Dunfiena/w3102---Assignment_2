@@ -37,6 +37,9 @@
             }
         }else{
             products = productstmp;
+            for (Product prod : products) {
+                reviews.addAll(rcon.select(prod.getId()));
+            }
         }
     } catch (SQLException e) {
         throw new RuntimeException(e);
@@ -67,12 +70,13 @@
             </div>
             <br>
             <div class="modal_text">
-                <form name="add_cart" action="addtoCart" onsubmit="return checklogin(<%=login%>)" method="get">
+                <form name="add_cart" action="addtoCart" onsubmit="return checklogin2(<%=login%>,
+                    <%=product.getQuantity()%>, 'quantity<%=product.getId()%>')" method="get">
                     Name: <%=product.getProduct_name()%> <br>
                     Description: <%=product.getDescription()%> <br>
                     Price: <%=product.getPrice()%>$<br>
                     <label>             Quantity:
-                        <input type="number" name="itemQuantity">
+                        <input type="number" name="itemQuantity" value="" min="0" id="quantity<%=product.getId()%>" placeholder="">
                     </label>
                     <input type="hidden" name="itemID" value="<%=product.getId()%>">
                     <button type="submit">Add to Cart</button>
@@ -93,7 +97,7 @@
             <hr><hr>
 
             <div class="modal_leave_review">
-                <form name="review" method="get" onsubmit="return checklogin(<%=login%>)" action="leaveReview">
+                <form name="review" method="get" onsubmit="return checklogin1(<%=login%>)" action="leaveReview">
                     <label>Leave a Review:<br>
                         <input type="text" name="review" placeholder="Leave us with your thoughts =)" style="width: 100%; height: 40%;">
                     </label>

@@ -41,6 +41,9 @@
 
     <title>Shop - Styles by John Arbuckle</title>
 </head>
+<script>
+
+</script>
 <body>
 <div class="checkout_body">
     <div class="left">
